@@ -3,6 +3,9 @@ import string
 import random
 
 app = Flask(__name__)
+REDIS_HOST='localhost'
+REDIS_PORT=6379
+
 
 
 def shortenUrl(urlRec: str) -> str:
