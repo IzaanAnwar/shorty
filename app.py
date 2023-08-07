@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request
 import string
 import random
+import redis
 
 app = Flask(__name__)
-REDIS_HOST='localhost'
-REDIS_PORT=6379
+redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
+
 
 
 
@@ -18,7 +19,16 @@ def home():
     if request.method == "POST":
         urlRec = request.form.get("originalUrl")
         shortUrl = shortenUrl(urlRec=urlRec)
-        return render_template("index.html", shortened_url=shortUrl)
+        shortKey = redis_client.get(urlRec)
+        print(shortKey)
+        if shortKey:
+            return render_template("index.html", shortened_url=shortKey)
+
+        val = redis_client.set(urlRec, shortUrl)
+        if val:
+            return render_template("index.html", shortened_url=shortUrl)
+        return "Something went wrong!!"
+
     return render_template("index.html")
 
 
