@@ -1,0 +1,6 @@
+
+CREATE TABLE url_codes (
+    id INTEGER PRIMARY KEY,
+    url TEXT NOT NULL UNIQUE,
+    code TEXT NOT NULL UNIQUE
+);

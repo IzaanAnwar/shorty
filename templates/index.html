@@ -24,6 +24,13 @@
               </div>
             </form>
             <div>
+              {% if error %}
+                <div class="alert alert-danger" style="text-align: center;">
+                  <strong>
+                    <p>{{ error }}</p>
+                  </strong>
+                </div>
+                {% endif %}
                 {% if shortened_url %}
                 <div class="alert alert-success">
                   <strong>Shortened URL:</strong>
